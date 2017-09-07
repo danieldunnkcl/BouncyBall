@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
-public class Ball extends Ellipse2D {
+public class Ball extends Rectangle {
 
     int x,y,xVelocity,yVelocity,radius,panelWidth,panelHeight,id;
     boolean xCollision = false,yCollision = false;
@@ -74,10 +74,6 @@ public class Ball extends Ellipse2D {
 
     }
 
-    @Override
-    public Rectangle2D getBounds2D() {
-        return null;
-    }
 
     public Rectangle getBounds(){
         return new Rectangle(x,y,radius,radius);
