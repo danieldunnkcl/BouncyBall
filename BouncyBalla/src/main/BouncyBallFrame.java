@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class BouncyBallFrame extends JPanel implements ActionListener, MouseListener{
 
     Timer timer;
-    int posX, posY, velX,velY, radius;
+    int posX, posY, velX,velY, radius,clicks = 0;
 
     ArrayList<Ball> balls = new ArrayList<>();
 
@@ -25,6 +25,11 @@ public class BouncyBallFrame extends JPanel implements ActionListener, MouseList
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         for(Ball b : balls){
+            for(Ball b2 : balls){
+                if(b != b2){
+                    b.setCollision(b2);
+                }
+            }
             g.drawOval((int)b.getX(),(int)b.getY(),(int)b.getWidth(),(int)b.getHeight());
         }
         timer.start();
@@ -58,8 +63,8 @@ public class BouncyBallFrame extends JPanel implements ActionListener, MouseList
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("click detected");
-        balls.add(new Ball(e.getX(),e.getY(),2,2,50,getWidth(),getHeight()));
+        balls.add(new Ball(e.getX(),e.getY(),2,2,50,getWidth(),getHeight(),clicks));
+        clicks++;
     }
 
     @Override
