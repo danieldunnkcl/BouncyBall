@@ -4,39 +4,42 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 
-public class BouncyBallFrame extends JPanel implements ActionListener {
+public class BouncyBallFrame extends JPanel implements ActionListener, MouseListener{
 
     Timer timer;
     int posX, posY, velX,velY, radius;
 
+    ArrayList<Ball> balls = new ArrayList<>();
+
     public BouncyBallFrame(){
 
         timer = new Timer(5,this);
-        posX = 1;
-        posY = 1;
-        velY = 2;
-        velX = 2;
-        radius = 50;
+        addMouseListener(this);
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-
-        g.setColor(Color.RED);
-        g.fillOval(posX,posY,radius,radius);
+        for(Ball b : balls){
+            g.drawOval((int)b.getX(),(int)b.getY(),(int)b.getWidth(),(int)b.getHeight());
+        }
         timer.start();
     }
+    public int getWidth(){
+        return super.getWidth();
+    }
+
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        posX += velX;
-        posY += velY;
-
-        if(posX < 0 || posX > getWidth() - radius) velX = -velX;
-        if(posY < 0 || posY > getHeight() - radius) velY = -velY;
+        for(Ball b : balls){
+            b.move();
+        }
         repaint();
     }
 
@@ -51,5 +54,31 @@ public class BouncyBallFrame extends JPanel implements ActionListener {
         frame.setVisible(true);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("click detected");
+        balls.add(new Ball(e.getX(),e.getY(),2,2,50,getWidth(),getHeight()));
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
