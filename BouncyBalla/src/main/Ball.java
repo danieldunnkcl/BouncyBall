@@ -21,13 +21,16 @@ public class Ball extends Rectangle {
     }
 
     public void move(){
-        x += xVelocity;
-        y += yVelocity;
 
         if(x < 0 || x > panelWidth - radius) xVelocity = -xVelocity;
         if(y < 0 || y > panelHeight - radius) yVelocity = -yVelocity;
         if(xCollision) xVelocity = -xVelocity;
         if(yCollision) yVelocity = -yVelocity;
+
+        x += xVelocity;
+        y += yVelocity;
+
+
 
         xCollision = false;
         yCollision = false;
@@ -88,7 +91,7 @@ public class Ball extends Rectangle {
                 xCollision = true;
             }
             if(this.yVelocity * otherBall.yVelocity < 0){
-                yCollision = false;
+                yCollision = true;
             }
         }
     }
