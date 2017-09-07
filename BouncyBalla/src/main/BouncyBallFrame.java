@@ -24,13 +24,14 @@ public class BouncyBallFrame extends JPanel implements ActionListener, MouseList
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        g.setColor(Color.BLUE);
         for(Ball b : balls){
             for(Ball b2 : balls){
                 if(b != b2){
                     b.detectCollision(b2);
                 }
             }
-            g.drawOval((int)b.getX(),(int)b.getY(),(int)b.getWidth(),(int)b.getHeight());
+            g.fillOval((int)b.getX(),(int)b.getY(),(int)b.getWidth(),(int)b.getHeight());
         }
         timer.start();
     }
@@ -86,4 +87,5 @@ public class BouncyBallFrame extends JPanel implements ActionListener, MouseList
     public void mouseExited(MouseEvent e) {
 
     }
+
 }
