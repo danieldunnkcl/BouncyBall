@@ -7,7 +7,7 @@ import java.awt.geom.Rectangle2D;
 public class Ball extends Ellipse2D {
 
     int x,y,xVelocity,yVelocity,radius,panelWidth,panelHeight,id;
-    boolean collision = false;
+    boolean xCollision = false,yCollision = false;
 
     public Ball(int x,int y,int xVelocity,int yVelocity,int radius, int panelWidth, int panelHeight,int id){
         this.x = x;
@@ -26,11 +26,22 @@ public class Ball extends Ellipse2D {
 
         if(x < 0 || x > panelWidth - radius) xVelocity = -xVelocity;
         if(y < 0 || y > panelHeight - radius) yVelocity = -yVelocity;
-        if(collision){
-            yVelocity = -yVelocity;
-            xVelocity = -xVelocity;
-        }
+        if(xCollision) xVelocity = -xVelocity;
+        if(yCollision) yVelocity = -yVelocity;
 
+        xCollision = false;
+        yCollision = false;
+
+
+    }
+
+
+    public int getxVelocity() {
+        return xVelocity;
+    }
+
+    public int getyVelocity() {
+        return yVelocity;
     }
 
     @Override
@@ -72,8 +83,18 @@ public class Ball extends Ellipse2D {
         return new Rectangle(x,y,radius,radius);
     }
 
-    public void setCollision(Ball otherBall){
-        collision = this.getBounds().intersects(otherBall.getBounds());
+    public void detectCollision(Ball otherBall)
+    {
+
+        boolean intersection = this.getBounds().intersects(otherBall.getBounds());
+        if(intersection){
+            if(this.xVelocity * otherBall.xVelocity < 0){
+                xCollision = true;
+            }
+            if(this.yVelocity * otherBall.yVelocity < 0){
+                yCollision = false;
+            }
+        }
     }
 
     public boolean equals(Ball rhs){

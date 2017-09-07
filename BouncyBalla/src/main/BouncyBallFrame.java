@@ -27,7 +27,7 @@ public class BouncyBallFrame extends JPanel implements ActionListener, MouseList
         for(Ball b : balls){
             for(Ball b2 : balls){
                 if(b != b2){
-                    b.setCollision(b2);
+                    b.detectCollision(b2);
                 }
             }
             g.drawOval((int)b.getX(),(int)b.getY(),(int)b.getWidth(),(int)b.getHeight());
