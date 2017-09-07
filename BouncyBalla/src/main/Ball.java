@@ -30,8 +30,6 @@ public class Ball extends Rectangle {
         x += xVelocity;
         y += yVelocity;
 
-
-
         xCollision = false;
         yCollision = false;
 

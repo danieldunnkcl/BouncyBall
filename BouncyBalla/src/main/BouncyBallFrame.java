@@ -18,7 +18,7 @@ public class BouncyBallFrame extends JPanel implements ActionListener, MouseList
 
     public BouncyBallFrame(){
 
-        timer = new Timer(5,this);
+        timer = new Timer(20,this);
         addMouseListener(this);
     }
 
@@ -43,10 +43,10 @@ public class BouncyBallFrame extends JPanel implements ActionListener, MouseList
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        repaint();
         for(Ball b : balls){
             b.move();
         }
-        repaint();
     }
 
     public static void main(String[] args) {
